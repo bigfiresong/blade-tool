@@ -23,8 +23,8 @@ import org.springblade.core.redis.pubsub.RPubSubListenerLazyFilter;
 import org.springblade.core.redis.pubsub.RPubSubPublisher;
 import org.springblade.core.redis.pubsub.RedisPubSubPublisher;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
@@ -53,10 +53,8 @@ public class RedisPubSubConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnBean(RedisSerializer.class)
-	public static RPubSubListenerDetector topicListenerDetector(RedisMessageListenerContainer redisMessageListenerContainer,
-														 RedisSerializer<Object> redisSerializer) {
-		return new RPubSubListenerDetector(redisMessageListenerContainer, redisSerializer);
+	public static RPubSubListenerDetector topicListenerDetector(ApplicationContext applicationContext) {
+		return new RPubSubListenerDetector(applicationContext);
 	}
 
 	@Bean
