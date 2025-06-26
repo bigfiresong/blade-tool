@@ -20,7 +20,7 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.security.MacAlgorithm;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.SneakyThrows;
 import org.springblade.core.launch.constant.TokenConstant;
 import org.springblade.core.secure.BladeUser;
@@ -34,7 +34,6 @@ import org.springblade.core.tool.constant.RoleConstant;
 import org.springblade.core.tool.utils.*;
 
 import javax.crypto.spec.SecretKeySpec;
-import jakarta.servlet.http.HttpServletRequest;
 import java.security.Key;
 import java.util.*;
 
@@ -465,7 +464,7 @@ public class SecureUtil {
 		}
 		long expMillis = nowMillis + expireMillis;
 		Date exp = new Date(expMillis);
-		builder.setExpiration(exp).setNotBefore(now);
+		builder.expiration(exp).notBefore(now);
 
 		// 组装Token信息
 		TokenInfo tokenInfo = new TokenInfo();
