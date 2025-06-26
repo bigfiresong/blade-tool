@@ -19,6 +19,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.MacAlgorithm;
 import lombok.SneakyThrows;
 import org.springblade.core.launch.constant.TokenConstant;
 import org.springblade.core.secure.BladeUser;
@@ -399,9 +401,10 @@ public class SecureUtil {
 	 */
 	public static Claims parseJWT(String jsonWebToken) {
 		try {
-			return Jwts.parserBuilder()
-				.setSigningKey(Base64.getDecoder().decode(getBase64Security())).build()
-				.parseClaimsJws(jsonWebToken).getBody();
+			return Jwts.parser()
+				.verifyWith(Keys.hmacShaKeyFor(Base64.getDecoder().decode(getBase64Security()))).build()
+				.parseSignedClaims(jsonWebToken)
+				.getPayload();
 		} catch (Exception ex) {
 			return null;
 		}
@@ -430,7 +433,6 @@ public class SecureUtil {
 		if (!validateClient(clientDetails, clientId, clientSecret)) {
 			throw new SecureException("客户端认证失败!");
 		}
-
 		SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
 		long nowMillis = System.currentTimeMillis();
