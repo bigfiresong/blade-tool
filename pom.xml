@@ -353,7 +353,7 @@
             <dependency>
                 <artifactId>hibernate-validator</artifactId>
                 <groupId>org.hibernate.validator</groupId>
-                <version>8.0.1.Final</version>
+                <version>9.0.1.Final</version>
             </dependency>
             <!-- Druid -->
             <dependency>
