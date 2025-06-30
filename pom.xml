@@ -71,6 +71,7 @@
         <alibaba.nacos.version>3.0.1</alibaba.nacos.version>
         <fastexcel.version>1.2.0</fastexcel.version>
         <poi.version>5.4.1</poi.version>
+        <poi.ooxl.version>1.4</poi.ooxl.version>
     </properties>
 
     <modules>
@@ -84,6 +85,7 @@
         <module>blade-starter-api-crypto</module>
         <module>blade-starter-datascope</module>
         <module>blade-starter-develop</module>
+        <module>blade-starter-excel</module>
         <module>blade-starter-loadbalancer</module>
         <module>blade-starter-log</module>
         <module>blade-starter-mybatis</module>
@@ -164,6 +166,11 @@
             <dependency>
                 <groupId>org.springblade</groupId>
                 <artifactId>blade-starter-develop</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springblade</groupId>
+                <artifactId>blade-starter-excel</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
@@ -433,12 +440,6 @@
                 <artifactId>easy-captcha</artifactId>
                 <version>1.6.2</version>
             </dependency>
-            <!-- easyexcel -->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>easyexcel</artifactId>
-                <version>4.0.3</version>
-            </dependency>
             <!-- fastexcel -->
             <dependency>
                 <groupId>cn.idev.excel</groupId>
@@ -464,6 +465,11 @@
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi-scratchpad</artifactId>
                 <version>${poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>ooxml-schemas</artifactId>
+                <version>${poi.ooxl.version}</version>
             </dependency>
             <!-- sm2 -->
             <dependency>
@@ -687,6 +693,8 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <version>3.11.2</version>
+                        <!-- 若模块化编译报错可切换此版本 -->
+                        <!--<version>2.10.1</version>-->
                         <executions>
                             <execution>
                                 <phase>package</phase>
