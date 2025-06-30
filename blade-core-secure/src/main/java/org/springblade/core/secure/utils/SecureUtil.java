@@ -18,7 +18,6 @@ package org.springblade.core.secure.utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.SneakyThrows;
@@ -33,8 +32,7 @@ import org.springblade.core.secure.provider.IClientDetailsService;
 import org.springblade.core.tool.constant.RoleConstant;
 import org.springblade.core.tool.utils.*;
 
-import javax.crypto.spec.SecretKeySpec;
-import java.security.Key;
+import javax.crypto.SecretKey;
 import java.util.*;
 
 /**
@@ -432,20 +430,17 @@ public class SecureUtil {
 		if (!validateClient(clientDetails, clientId, clientSecret)) {
 			throw new SecureException("客户端认证失败!");
 		}
-		SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
 		long nowMillis = System.currentTimeMillis();
 		Date now = new Date(nowMillis);
 
-		//生成签名密钥
-		byte[] apiKeySecretBytes = Base64.getDecoder().decode(getBase64Security());
-		Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+		// 生成签名密钥
+		SecretKey signingKey = Keys.hmacShaKeyFor(Base64.getDecoder().decode(getBase64Security()));
 
-		//添加构成JWT的类
-		JwtBuilder builder = Jwts.builder().setHeaderParam("typ", "JWT")
-			.setIssuer(issuer)
-			.setAudience(audience)
-			.signWith(signingKey);
+		// 添加构成JWT的类
+		JwtBuilder builder = Jwts.builder().header().add("typ", "JWT")
+			.and().issuer(issuer).audience().add(audience)
+			.and().signWith(signingKey);
 
 		//设置JWT参数
 		user.forEach(builder::claim);
