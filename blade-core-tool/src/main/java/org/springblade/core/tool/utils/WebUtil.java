@@ -125,6 +125,19 @@ public class WebUtil extends org.springframework.web.util.WebUtils {
 	}
 
 	/**
+	 * 获取 RequestUri
+	 *
+	 * @param request HttpServletRequest
+	 * @return {RequestUri}
+	 */
+	public static String getRequestURI(HttpServletRequest request) {
+		if (request == null) {
+			return StringPool.EMPTY;
+		}
+		return request.getRequestURI();
+	}
+
+	/**
 	 * 返回json
 	 *
 	 * @param response HttpServletResponse

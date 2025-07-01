@@ -18,6 +18,7 @@ package org.springblade.core.report.config;
 import com.bstek.ureport.UReportPropertyPlaceholderConfigurer;
 import com.bstek.ureport.console.UReportServlet;
 import com.bstek.ureport.provider.report.ReportProvider;
+import jakarta.servlet.Servlet;
 import org.springblade.core.report.props.ReportDatabaseProperties;
 import org.springblade.core.report.props.ReportProperties;
 import org.springblade.core.report.provider.DatabaseProvider;
@@ -31,8 +32,6 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.annotation.Order;
-
-import jakarta.servlet.Servlet;
 
 /**
  * UReport配置类

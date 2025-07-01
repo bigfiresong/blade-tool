@@ -28,6 +28,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "report")
 public class ReportProperties {
 	private Boolean enabled = true;
+	private Boolean auth = true;
 	private Boolean disableHttpSessionReportCache = false;
 	private Boolean disableFileProvider = true;
 	private String fileStoreDir = StringPool.EMPTY;
