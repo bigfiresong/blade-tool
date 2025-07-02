@@ -49,7 +49,7 @@ public class MappingApiJackson2HttpMessageConverter extends AbstractReadWriteJac
 	 * @see Jackson2ObjectMapperBuilder#json()
 	 */
 	public MappingApiJackson2HttpMessageConverter(ObjectMapper objectMapper, BladeJacksonProperties properties) {
-		super(objectMapper, initWriteObjectMapper(objectMapper), initMediaType(properties));
+		super(objectMapper, initWriteObjectMapper(objectMapper, properties), initMediaType(properties));
 	}
 
 	private static List<MediaType> initMediaType(BladeJacksonProperties properties) {
@@ -63,12 +63,18 @@ public class MappingApiJackson2HttpMessageConverter extends AbstractReadWriteJac
 		return supportedMediaTypes;
 	}
 
-	private static ObjectMapper initWriteObjectMapper(ObjectMapper readObjectMapper) {
+	private static ObjectMapper initWriteObjectMapper(ObjectMapper readObjectMapper, BladeJacksonProperties properties) {
 		// 拷贝 readObjectMapper
 		ObjectMapper writeObjectMapper = readObjectMapper.copy();
+		// 大数字 转 字符串
+		if (Boolean.TRUE.equals(properties.getBigNumToString())) {
+			writeObjectMapper.registerModules(BladeNumberModule.INSTANCE);
+		}
 		// null 处理
-		writeObjectMapper.setSerializerFactory(writeObjectMapper.getSerializerFactory().withSerializerModifier(new BladeBeanSerializerModifier()));
-		writeObjectMapper.getSerializerProvider().setNullValueSerializer(BladeBeanSerializerModifier.NullJsonSerializers.STRING_JSON_SERIALIZER);
+		if (Boolean.TRUE.equals(properties.getNullToEmpty())) {
+			writeObjectMapper.setSerializerFactory(writeObjectMapper.getSerializerFactory().withSerializerModifier(new BladeBeanSerializerModifier()));
+			writeObjectMapper.getSerializerProvider().setNullValueSerializer(BladeBeanSerializerModifier.NullJsonSerializers.STRING_JSON_SERIALIZER);
+		}
 		return writeObjectMapper;
 	}
 
