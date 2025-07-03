@@ -36,7 +36,7 @@
 
     <properties>
         <!-- Blade-Tool Version -->
-        <revision>4.6.0-SNAPSHOT</revision>
+        <revision>4.6.0</revision>
         <module.name>org.springblade.blade.tool</module.name>
         <!-- jdk Version -->
         <java.version>17</java.version>
@@ -650,17 +650,6 @@
         </plugins>
     </build>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>oss</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </snapshotRepository>
-        <repository>
-            <id>oss</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
-
     <profiles>
         <profile>
             <id>develop</id>
@@ -669,7 +658,8 @@
             </activation>
             <repositories>
                 <repository>
-                    <id>aliyun-repos</id>
+                    <id>aliyun</id>
+                    <name>aliyun</name>
                     <url>https://maven.aliyun.com/repository/public/</url>
                     <snapshots>
                         <enabled>false</enabled>
@@ -682,12 +672,27 @@
             <pluginRepositories>
                 <pluginRepository>
                     <id>aliyun-plugin</id>
-                    <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
+                    <url>https://maven.aliyun.com/repository/public</url>
                 </pluginRepository>
             </pluginRepositories>
+        </profile>
+        <profile>
+            <id>snapshot</id>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>central</id>
+                    <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+                </snapshotRepository>
+            </distributionManagement>
+            <build>
+                <plugins>
+                    <!-- 发布到中央库 -->
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
             <id>release</id>
@@ -723,18 +728,17 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <!-- Nexus -->
-                    <!--<plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.8</version>
+                    <!-- 发布到中央库 -->
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.8.0</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <serverId>oss</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
                         </configuration>
-                    </plugin>-->
+                    </plugin>
                 </plugins>
             </build>
         </profile>

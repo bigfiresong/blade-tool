@@ -1,8 +1,8 @@
 <p align="center">
   <img src="https://img.shields.io/badge/JDK-17+-green.svg" alt="Build Status">
   <img src="https://img.shields.io/badge/license-LGPL%20v3-blue.svg" alt="Build Status">
-  <img src="https://img.shields.io/badge/Spring%20Cloud-2024-blue.svg" alt="Coverage Status">
-  <img src="https://img.shields.io/badge/Spring%20Boot-3.4-blue.svg" alt="Downloads">
+  <img src="https://img.shields.io/badge/Spring%20Cloud-2025-blue.svg" alt="Coverage Status">
+  <img src="https://img.shields.io/badge/Spring%20Boot-3.5-blue.svg" alt="Downloads">
   <a href="https://central.sonatype.com/artifact/org.springblade/blade-core-bom/versions">
     <img src="https://img.shields.io/nexus/r/https/oss.sonatype.org/org.springblade/blade-core-bom.svg?style=flat-square" alt="Downloads">
   </a>
@@ -27,7 +27,7 @@
 * 极简封装了多租户底层，用更少的代码换来拓展性更强的SaaS多租户系统。
 * 借鉴OAuth2，自研多终端认证系统，可控制子系统的token权限互相隔离。
 * 借鉴Security，自研Secure模块，采用JWT做Token认证，可拓展集成Redis等细颗粒度控制方案。
-* 稳定生产了六年，经历了从 Camden -> Hoxton -> 2023 的技术架构，也经历了从fat jar -> docker -> k8s + jenkins的部署架构。
+* 稳定生产了六年，经历了从 Camden -> Hoxton -> 2025 的技术架构，也经历了从fat jar -> docker -> k8s + jenkins的部署架构。
 * 项目分包明确，规范微服务的开发模式，使包与包之间的分工清晰。
 
 ## 架构图
@@ -39,34 +39,40 @@
 |----------------------|------------|
 | Java                 | 17+        |
 | NodeJS               | 18+        |
-| Spring               | 6.1.15     |
-| Spring Boot          | 3.2.12     |
-| Spring Cloud         | 2023.0.3   |
-| Spring Cloud Alibaba | 2023.0.1.2 |
-| Nacos Alibaba        | 2.3.2      |
-| Mybatis Plus         | 3.5.8      |
+| Spring               | 6.2.8      |
+| Spring Boot          | 3.5.3      |
+| Spring Cloud         | 2025.0.0   |
+| Spring Cloud Alibaba | 2023.0.3.3 |
+| Nacos Alibaba        | 3.0.2      |
+| Mybatis Plus         | 3.5.12     |
 
 
 
 ## 工程结构
 ``` 
 blade-tool
-├── blade-core-boot -- 业务包综合模块
-├── blade-core-cloud -- cloud封装模块
-├── blade-core-datascope -- 数据权限封装模块
-├── blade-core-develop -- 代码生成封装模块
-├── blade-core-launch -- 基础启动模块
-├── blade-core-loadbalancer -- 灰度服务封装模块
-├── blade-core-log -- 日志封装模块 
-├── blade-core-mybatis -- mybatis拓展封装模块 
-├── blade-core-oss -- 对象存储封装模块 
-├── blade-core-report -- 报表封装模块 
-├── blade-core-secure -- 安全封装模块 
-├── blade-core-social -- 第三方登录封装模块 
-├── blade-core-swagger -- swagger拓展封装模块 
-├── blade-core-test -- 单元测试封装模块 
-├── blade-core-tool -- 单元测试封装模块 
-└── blade-core-transaction -- 分布式事物封装模块 
+├── blade-core-bom         -- Maven依赖管理模块
+├── blade-core-boot        -- 业务包综合模块，集成常用功能的快速启动包
+├── blade-core-cloud       -- Spring Cloud微服务封装模块 
+├── blade-core-launch      -- 基础启动模块，提供应用启动的核心功能
+├── blade-core-secure      -- 安全认证封装模块，JWT Token、权限控制等
+├── blade-core-test        -- 单元测试封装模块，集成测试工具和配置
+├── blade-core-tool        -- 核心工具封装模块，通用工具类、常量、配置等
+├── blade-starter-api-crypto    -- API接口加密解密模块
+├── blade-starter-cache         -- 缓存抽象封装模块
+├── blade-starter-datascope     -- 数据权限封装模块，支持行级权限控制
+├── blade-starter-develop       -- 代码生成封装模块，支持多种模板生成
+├── blade-starter-excel         -- Excel导入导出封装模块
+├── blade-starter-loadbalancer  -- 负载均衡与灰度发布封装模块
+├── blade-starter-log           -- 日志封装模块，统一日志处理和存储 
+├── blade-starter-mybatis       -- MyBatis Plus增强封装模块
+├── blade-starter-oss           -- 对象存储封装模块，支持多种云存储
+├── blade-starter-redis         -- Redis缓存封装模块，提供缓存操作工具
+├── blade-starter-report        -- 报表封装模块，支持多种报表生成
+├── blade-starter-social        -- 第三方登录封装模块，OAuth2社交登录
+├── blade-starter-swagger       -- Swagger文档封装模块，API文档自动生成
+├── blade-starter-tenant        -- 多租户封装模块，SaaS多租户支持
+└── blade-starter-transaction   -- 分布式事务封装模块，Seata分布式事务
 ```
 
 ## 官方信息
@@ -91,6 +97,7 @@ blade-tool
 | BladeX企业级开发平台 | [https://saber3.bladex.cn](https://saber3.bladex.cn) |
 | BladeX可视化数据大屏 | [https://data.bladex.cn](https://data.bladex.cn)     |
 | BladeX物联网开发平台 | [https://iot.bladex.cn](https://iot.bladex.cn)       |
+| BladeX大模型开发平台 | [https://ai.bladex.cn](https://ai.bladex.cn)        |
 
 ## 前端项目
 
